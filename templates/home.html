@@ -1,20 +1,50 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>JSON Schema Differ</title>
-	<style type="text/css">
-	textarea {
-		width: 400px;
-		height: 400px;
-	}
-	</style>
-</head>
-<body>
-<form method="POST", action="">
-<textarea name="json_a"></textarea>
-<textarea name="json_b"></textarea>
-<input type="submit"></input>
-</form>
+    <head>
+        <title>JSON Schema Differ</title>
+        <meta charset="UTF-8">
+        <link href="{{url_for('static', filename='css/base.css')}}" rel="stylesheet" type="text/css">
+        <script type="application/javascript" src="{{url_for('static', filename='js/jquery-2.2.1.min.js')}}"></script>
+    </head>
+    <body>
+        <div class="content">
+            <div id="input_content">
+                <div class="error_overlay_base error_overlay">
+                    <div class="error_message">
+                        <p>
+                        Your browser told me that this JSON is not valid.<br>
+                        I'm no expert so you may ask <a href="https://jsonformatter.curiousconcept.com/" target="_blank">this guy</a> what is wrong with it.<br>
+                         Or maybe <a href="http://jsonlint.com/" target="_blank">this guy</a>.<br>
+                        </p>
+                        <button class="red error_message_buttom">Ok</button>
+                    </div>
+                </div>
+                <form id="input_form" method="POST", action="">
+                    <textarea name="json_a" id="json_a" class="fl" wrap="off" placeholder='"Put here your first JSON to compare"'>{{json_a}}</textarea>
+                    <textarea name="json_b" id="json_b" class="fr"  wrap="off" placeholder='"Put here your second JSON to compare"'>{{json_b}}</textarea>
+                </form>
+            </div>
 
-</body>
+            <div id="button_placeholder">
+                <button id="check_json" class="grey">Check for diferences</button>
+            </div>
+
+            <div id="result">
+                <div class="code {% if equal %}ok{% else %}differ{% endif %}">
+                    <code>
+                    {% for indent, linha in result %}
+                        <span class="ok" style="margin-left:{{indent}}0px;">
+                        {% if linha|length == 3 %}
+                            {{linha[0]}}<span class="error">{{linha[1]}}</span>{{linha[2]}}
+                        {% else %}
+                            {{linha[0]}}
+                        {% endif %}
+                        </span><br>
+                    {% endfor %} 
+                    </code>
+                </div>
+            </div>
+        </div>
+    <script type="application/javascript" src="{{url_for('static', filename='js/validador.js')}}"></script>
+    </body>
 </html>
