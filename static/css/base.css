@@ -9,6 +9,34 @@ body {
 .fr {
 	float: right;
 }
+div.header {
+	height: 65px;
+	padding: 10px;
+	width: 90%;
+	margin: auto;
+	color: #C7242E;
+}
+div.logo {
+	background: url("/static/img/logo_menor.png");
+	height: 50px;
+	width: 167px;
+}
+svg.github {
+	vertical-align: middle;
+}
+a.item_menu {
+	fill: #C7242E;
+	height: 35px;
+	line-height: 30px;
+	margin: 13px 10px 0px 10px;
+}
+a.item_menu span {
+	margin-left: 5px;
+}
+a.item_menu:hover {
+	color: red;
+	fill: red;
+}
 div.backend_error {
 	margin: 100px;
 	padding: 15px;

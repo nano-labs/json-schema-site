@@ -1,64 +1,54 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>JSON Schema Differ</title>
-        <meta charset="UTF-8">
-        <link href="{{url_for('static', filename='css/base.css')}}" rel="stylesheet" type="text/css">
-        <script type="application/javascript" src="{{url_for('static', filename='js/jquery-2.2.1.min.js')}}"></script>
-    </head>
-    <body>
-        <div class="content">
-            {% if error %}
-            <div class="backend_error">
-                <h3>Huston, we have a problem!</h3>
-                Looks like our backend elfs have done something wrong.<br>
-                Why dont you take a look and help them?<br>
-                Here, take this traceback!<br>
-                <span class="tiny">(yes yes, I know, show this traceback could de dangerous, yada yada yada...)</span><br>
-                <textarea>
-                    {{error}}
-                </textarea><br>
-                Found something? How about a pull request <a href="https://github.com/nano-labs/json-schema-site" target="_blank">here</a> or <a href="https://github.com/nano-labs/json_schema" target="_blank">here</a>?
-                <div><button class="red error_message_buttom">Ok</button></div>
-            </div>
-            {% endif %}
-            <div id="input_content">
-                <div class="error_overlay_base error_overlay">
-                    <div class="error_message">
-                        <p>
-                        Your browser told me that this JSON is not valid.<br>
-                        I'm no expert so you may ask <a href="https://jsonformatter.curiousconcept.com/" target="_blank">this guy</a> what is wrong with it.<br>
-                         Or maybe <a href="http://jsonlint.com/" target="_blank">this guy</a>.<br>
-                        </p>
-                        <button class="red error_message_buttom">Ok</button>
-                    </div>
-                </div>
-                <form id="input_form" method="POST", action="">
-                    <textarea name="json_a" id="json_a" class="json_input fl" wrap="off" placeholder='"Put here your first JSON to compare"'>{{json_a}}</textarea>
-                    <textarea name="json_b" id="json_b" class="json_input fr"  wrap="off" placeholder='"Put here your second JSON to compare"'>{{json_b}}</textarea>
-                </form>
-            </div>
+{% extends "base.html" %}
 
-            <div id="button_placeholder">
-                <button id="check_json" class="grey">Check for diferences</button>
-            </div>
-
-            <div id="result">
-                <div class="code {% if equal == True %}ok{% elif equal == False %}differ{% endif %}">
-                    <code>
-                    {% for indent, linha in result %}
-                        <span class="ok" style="margin-left:{{indent}}0px;">
-                        {% if linha|length == 3 %}
-                            {{linha[0]}}<span class="error">{{linha[1]}}</span>{{linha[2]}}
-                        {% else %}
-                            {{linha[0]}}
-                        {% endif %}
-                        </span><br>
-                    {% endfor %} 
-                    </code>
-                </div>
-            </div>
+{% block content %}
+{% if error %}
+<div class="backend_error">
+    <h3>Huston, we have a problem!</h3>
+    Looks like our backend elfs have done something wrong.<br>
+    Why dont you take a look and help them?<br>
+    Here, take this traceback!<br>
+    <span class="tiny">(yes yes, I know, show this traceback could de dangerous, yada yada yada...)</span><br>
+    <textarea>
+        {{error}}
+    </textarea><br>
+    Found something? How about a pull request <a href="https://github.com/nano-labs/json-schema-site" target="_blank">here</a> or <a href="https://github.com/nano-labs/json_schema" target="_blank">here</a>?
+    <div><button class="red error_message_buttom">Ok</button></div>
+</div>
+{% endif %}
+<div id="input_content">
+    <div class="error_overlay_base error_overlay">
+        <div class="error_message">
+            <p>
+            Your browser told me that this JSON is not valid.<br>
+            I'm no expert so you may ask <a href="https://jsonformatter.curiousconcept.com/" target="_blank">this guy</a> what is wrong with it.<br>
+             Or maybe <a href="http://jsonlint.com/" target="_blank">this guy</a>.<br>
+            </p>
+            <button class="red error_message_buttom">Ok</button>
         </div>
-    <script type="application/javascript" src="{{url_for('static', filename='js/validador.js')}}"></script>
-    </body>
-</html>
+    </div>
+    <form id="input_form" method="POST", action="">
+        <textarea name="json_a" id="json_a" class="json_input fl" wrap="off" placeholder='"Put here your first JSON to compare"'>{{json_a}}</textarea>
+        <textarea name="json_b" id="json_b" class="json_input fr"  wrap="off" placeholder='"Put here your second JSON to compare"'>{{json_b}}</textarea>
+    </form>
+</div>
+
+<div id="button_placeholder">
+    <button id="check_json" class="grey">Check for diferences</button>
+</div>
+
+<div id="result">
+    <div class="code {% if equal == True %}ok{% elif equal == False %}differ{% endif %}">
+        <code>
+        {% for indent, linha in result %}
+            <span class="ok" style="margin-left:{{indent}}0px;">
+            {% if linha|length == 3 %}
+                {{linha[0]}}<span class="error">{{linha[1]}}</span>{{linha[2]}}
+            {% else %}
+                {{linha[0]}}
+            {% endif %}
+            </span><br>
+        {% endfor %} 
+        </code>
+    </div>
+</div>
+{% endblock %}
