@@ -1,8 +1,2 @@
 Flask==0.10.1
-Jinja2==2.8
-MarkupSafe==0.23
-Werkzeug==0.11.4
-itsdangerous==0.24
-json-schema-matcher==0.1.5
-simplejson==3.8.2
-wsgiref==0.1.2
+-e git+https://github.com/nano-labs/json_schema.git@c81ac1da51a6f870db8df2f61a36106e058be624#egg=json_schema_matcher
